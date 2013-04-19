@@ -15,39 +15,42 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends Activity {
 
-	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		Button bntScan = (Button) findViewById(R.id.button1);
-		bntScan.setOnClickListener(new OnClickListener() {			
+		bntScan.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Activity MainActivity = null;
 				// TODO Auto-generated method stub
-				IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+				IntentIntegrator integrator = new IntentIntegrator(
+						MainActivity.this);
 				integrator.initiateScan();
 			}
 		});
-		
-	}	
+
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-		  if (scanResult != null) {
-			  TextView txtBarcode = (TextView) findViewById(R.id.textView1);
-			  txtBarcode.setText(scanResult.getContents().toString());
-			  
-		  } else {
-			  Toast.makeText(this, "No data!", Toast.LENGTH_SHORT).show();
-		  }
-		
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		try {
+			IntentResult scanResult = IntentIntegrator.parseActivityResult(
+					requestCode, resultCode, data);
+			if (scanResult != null) {
+				TextView txtBarcode = (TextView) findViewById(R.id.textView1);
+				txtBarcode.setText(scanResult.getContents().toString());
+			} else {
+				Toast.makeText(this, "No data!", Toast.LENGTH_SHORT).show();
+			}
+		} catch (Exception e) {
+			
+		}
 	}
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
